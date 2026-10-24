@@ -3030,7 +3030,7 @@ async function cj2Submit(){
       filename
     });
     // ── 구글 시트 전송 ──
-    await fetch(SHEET_WEB_APP_URL2,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({sheet:'초진',row:[dr2FullDate(),chart,n,i1,i2,ph,ad,a1?'동의':'미동의',a2?'동의':'미동의',a3?'동의':'미동의',a4?'동의':'미동의',a5?'동의':'미동의',a6?'확인':'미확인',sigUrl||'(드라이브링크)',filename],signature:sigDataUrl})});
+    await fetch(SHEET_WEB_APP_URL2,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({sheet:'초진',row:[dr2FullDate(),chart,n,i1,i2.slice(0,1),ph,ad,a1?'동의':'미동의',a2?'동의':'미동의',a3?'동의':'미동의',a4?'동의':'미동의',a5?'동의':'미동의',a6?'확인':'미확인',sigUrl||'(드라이브링크)',filename],signature:sigDataUrl})});
     toast('✅ 저장 완료!');
   }catch(e){toast('📄 PDF 저장 완료 (네트워크 오류)'); console.error(e);
   }finally{
