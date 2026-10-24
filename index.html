@@ -2766,7 +2766,7 @@ function showToast(msg) {
 // ═══════════════════════════════════════
 // 대리처방 & 초진 통합 로직
 // ═══════════════════════════════════════
-function dongOnly(a){a=String(a||'');var m=a.match(/[가-힣][가-힣0-9]*(?:동|읍|면|리)(?![가-힣])/);if(m)return m[0];var g=a.match(/[가-힣]+(?:구|군)(?![가-힣])/)||a.match(/[가-힣]+시(?![가-힣])/);return g?g[0]:'';}
+function addrHead(a){return String(a||'').trim().slice(0,7);}
 const SHEET_WEB_APP_URL2 = "https://script.google.com/macros/s/AKfycbzFR4dqmK32DDSHf8s6D0IJzmOFJYakSyBFOCx5MXrcb-zA5XMs9Dk3cBKNkzBCzOc/exec";
 
 // ─ 라디오 아이템 스타일 주입 ─
@@ -2938,7 +2938,7 @@ async function dr2Submit(){
       filename
     });
     // ── 구글 시트 전송 ──
-    await fetch(SHEET_WEB_APP_URL2,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({sheet:'대리',row:[dr2FullDate(),chart,vn,vp,vb,dongOnly(va),rel,pn,pp,pb,dongOnly(pa),rsn,sigUrl||'(드라이브링크)',filename],signature:sigDataUrl})});
+    await fetch(SHEET_WEB_APP_URL2,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({sheet:'대리',row:[dr2FullDate(),chart,vn,vp,vb,va,rel,pn,pp,pb,pa,rsn,sigUrl||'(드라이브링크)',filename],signature:sigDataUrl})});
     toast('✅ 저장 완료!');
   }catch(e){toast('📄 PDF 저장 완료 (네트워크 오류)'); console.error(e);
   }finally{
@@ -3031,7 +3031,7 @@ async function cj2Submit(){
       filename
     });
     // ── 구글 시트 전송 ──
-    await fetch(SHEET_WEB_APP_URL2,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({sheet:'초진',row:[dr2FullDate(),chart,n,i1,i2.slice(0,1),ph,dongOnly(ad),a1?'동의':'미동의',a2?'동의':'미동의',a3?'동의':'미동의',a4?'동의':'미동의',a5?'동의':'미동의',a6?'확인':'미확인',sigUrl||'(드라이브링크)',filename],signature:sigDataUrl})});
+    await fetch(SHEET_WEB_APP_URL2,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({sheet:'초진',row:[dr2FullDate(),chart,n,i1,i2.slice(0,1),ph,addrHead(ad),a1?'동의':'미동의',a2?'동의':'미동의',a3?'동의':'미동의',a4?'동의':'미동의',a5?'동의':'미동의',a6?'확인':'미확인',sigUrl||'(드라이브링크)',filename],signature:sigDataUrl})});
     toast('✅ 저장 완료!');
   }catch(e){toast('📄 PDF 저장 완료 (네트워크 오류)'); console.error(e);
   }finally{
