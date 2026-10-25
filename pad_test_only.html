@@ -3015,7 +3015,6 @@ async function cj2Submit(){
 <h3>동의 항목</h3>
 <table class="agree-table"><tr><td>6. 개인정보 수집·이용 동의</td><td>귀하의 소중한 개인정보는 의료법 및 개인정보보호법의 관련규정에 의하여 진료 및 진료 지원의 목적으로 수집 및 이용됩니다.<br><strong style="color:${a1?'#27ae60':'#c0392b'}">${a1?'✔ 동의':'✘ 미동의'}</strong></td></tr><tr><td>7. 진단서 발급 관련 동의</td><td>금일 진료 후 진단서 발급 불가하며, 최소 1~2개월의 외래 진료 후 발급 가능함을 확인합니다.<br><strong style="color:${a2?'#27ae60':'#c0392b'}">${a2?'✔ 동의':'✘ 미동의'}</strong></td></tr><tr><td>8. 본인 확인 불가 시 진료 불가 동의</td><td>주민등록증, 운전면허증 등으로 본인 확인이 되지 않을 경우 진료 불가함에 동의합니다.<br><strong style="color:${a3?'#27ae60':'#c0392b'}">${a3?'✔ 동의':'✘ 미동의'}</strong></td></tr><tr><td>9. 발급 서류 환불 불가 동의</td><td>발급된 서류는 환불이 되지 않음을 이해하고 동의합니다.<br><strong style="color:${a4?'#27ae60':'#c0392b'}">${a4?'✔ 동의':'✘ 미동의'}</strong></td></tr><tr><td>10. 상담료·검사비 발생 동의</td><td>약 처방이 없더라도 상담료 및 검사비 등이 발생됨을 이해하고 동의합니다.<br><strong style="color:${a5?'#27ae60':'#c0392b'}">${a5?'✔ 동의':'✘ 미동의'}</strong></td></tr><tr><td>11. CCTV 촬영 안내 확인</td><td>본 병원은 24시간 CCTV 촬영 중임을 알려드립니다.<br><strong style="color:${a6?'#27ae60':'#c0392b'}">${a6?'✔ 확인':'✘ 미확인'}</strong></td></tr></table>
 <div class="sig-section"><span class="sig-label">서명 (이름 정자)</span><img src="${sigDataUrl}" class="sig-img" alt="서명"><span class="footer" style="margin-left:auto">${filename} | ${today}</span></div>
-<button class="no-print" onclick="window.print()" style="margin-top:14px;padding:12px 28px;background:#1a3a5c;color:white;border:none;border-radius:8px;font-size:15px;cursor:pointer;font-family:'Noto Sans KR',sans-serif">🖨️ 인쇄 / PDF 저장</button>
 </body></html>`;
   const win=window.open('','_blank');
   if(!win){toast('팝업 차단을 해제해주세요.');return;}
@@ -3031,7 +3030,7 @@ async function cj2Submit(){
       filename
     });
     // ── 구글 시트 전송 ──
-    await fetch(SHEET_WEB_APP_URL2,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({sheet:'초진',row:[dr2FullDate(),chart,n,i1,i2.slice(0,1),ph,addrHead(ad),a1?'동의':'미동의',a2?'동의':'미동의',a3?'동의':'미동의',a4?'동의':'미동의',a5?'동의':'미동의',a6?'확인':'미확인',sigUrl||'(드라이브링크)',filename],signature:sigDataUrl})});
+    await fetch(SHEET_WEB_APP_URL2,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({sheet:'초진',row:[dr2FullDate(),chart,n,i1,'',ph,addrHead(ad),a1?'동의':'미동의',a2?'동의':'미동의',a3?'동의':'미동의',a4?'동의':'미동의',a5?'동의':'미동의',a6?'확인':'미확인',sigUrl||'(드라이브링크)',filename],signature:sigDataUrl})});
     toast('✅ 저장 완료!');
   }catch(e){toast('📄 PDF 저장 완료 (네트워크 오류)'); console.error(e);
   }finally{
